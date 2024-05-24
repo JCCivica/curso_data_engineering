@@ -16,7 +16,6 @@ sources:
       error_after: {count: 480, period: day}
 
     tables:
-
       - name: addresses
         loaded_at_field: _fivetran_synced
         columns:
