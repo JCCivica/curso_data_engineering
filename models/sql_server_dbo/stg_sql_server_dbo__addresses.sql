@@ -5,11 +5,10 @@
 }}
 
 WITH src_addresses AS (
-    SELECT * 
-    FROM {{ source('sql_server_dbo', 'addresses') }}
-    ),
-
-renamed_casted AS (
+    SELECT 
+    FROM {{ source('sql_server_dbo', 'addresses') }} as adr
+     ),
+addreses_orders AS (
     SELECT
         ADDRESS_ID,
         ZIPCODE,
@@ -21,4 +20,4 @@ renamed_casted AS (
     FROM src_addresses
     )
 
-SELECT * FROM renamed_casted
+SELECT * FROM addreses_orders

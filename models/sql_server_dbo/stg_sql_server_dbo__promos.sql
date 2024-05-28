@@ -1,22 +1,33 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
+{{ config(materialized="view") }}
 
-WITH src_promos AS (
-    SELECT * 
-    FROM {{ source('sql_server_dbo', 'promos') }}
+with
+    src_promos as (select * from {{ source("sql_server_dbo", "promos") }}),
+
+    renamed_casted as (
+        select
+            md5(promo_id) as promo_id,
+            promo_id as promo_name,
+            case
+                when status like 'inactive' then 0 when status like 'active' then 1
+            end as status_id,
+            discount as discount_dollars,
+            coalesce(_fivetran_deleted, 0),
+            _fivetran_synced
+        from src_promos
     ),
-
-renamed_casted AS (
-    SELECT
-        PROMO_ID,
-        DISCOUNT,
-        STATUS,
-        _FIVETRAN_DELETED,
-        _FIVETRAN_SYNCED
-    FROM src_promos
+     new_row as (
+        select
+            md5('sin promo') as promo_id,
+            'sin promo' as promo_name,
+            1 as status_id,
+            0 as discount_dollars,
+            false as _fivetran_deleted,
+            CURRENT_DATE()  as _fivetran_synced
+        from src_promos
     )
 
-SELECT * FROM renamed_casted
+select *
+from renamed_casted
+union
+select *
+from new_row
