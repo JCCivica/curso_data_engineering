@@ -5,7 +5,8 @@
 }}
 
 WITH src_products AS (
-    SELECT * 
+    SELECT 
+     
     FROM {{ source('sql_server_dbo', 'products') }}
     ),
 
