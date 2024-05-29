@@ -3,15 +3,15 @@ unit_tests:
     description: "Check if email is valid"
     model: stg_sql_server_dbo__users
     given:
-      - input: source('sql_server_dbo, users'})
+      - input: source('sql_server_dbo', 'users')
         rows:
           - {email: ekollaschek2q@tuttocitta.it}
           - {email: sdivers2p@msu.edu}
           - {email: wheinecke2l@ebay.com}
           - {email: fail_email}
-      - input: source('sql_server_dbo, users'})
+      - input: source('sql_server_dbo', 'orders')
         rows:
-          - {user_id: 6}
+          - {user_id: 1}
 
     expect:
       rows:
