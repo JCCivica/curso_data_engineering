@@ -9,20 +9,30 @@ WITH src_users AS (
     FROM {{ source('sql_server_dbo', 'users') }}
     ),
 
-renamed_casted AS (
-    SELECT
+count_total_orders as (
+    select
         USER_ID,
+        COUNT(USER_ID) AS TOTAL_ORDERS
+        FROM {{ source('sql_server_dbo', 'orders') }}
+        GROUP BY USER_ID
+),
+
+users_casted AS (
+    SELECT
+        SU.USER_ID,
         UPDATED_AT,
         ADDRESS_ID,
         LAST_NAME,
         CREATED_AT,
         PHONE_NUMBER,
-        TOTAL_ORDERS,
+        CTO.TOTAL_ORDERS,
         FIRST_NAME,
         EMAIL,
-        _FIVETRAN_DELETED,
-        _FIVETRAN_SYNCED
-    FROM src_users
+            coalesce(_fivetran_deleted, 0) as _fivetran_deleted,
+            convert_timezone('UTC', _fivetran_synced) as _fivetran_synced_utc
+    FROM src_users SU
+    LEFT JOIN count_total_orders CTO
+    ON SU.USER_ID = CTO.USER_ID
     )
 
-SELECT * FROM renamed_casted
+SELECT * FROM users_casted

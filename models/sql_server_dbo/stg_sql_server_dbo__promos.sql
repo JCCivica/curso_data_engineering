@@ -11,8 +11,8 @@ with
                 when status like 'inactive' then 0 when status like 'active' then 1
             end as status_id,
             discount as discount_dollars,
-            coalesce(_fivetran_deleted, 0),
-            _fivetran_synced
+            coalesce(_fivetran_deleted, 0) as _fivetran_deleted,
+            convert_timezone('UTC', _fivetran_synced) as _fivetran_synced_utc
         from src_promos
     ),
      new_row as (
@@ -22,7 +22,7 @@ with
             1 as status_id,
             0 as discount_dollars,
             false as _fivetran_deleted,
-            CURRENT_DATE()  as _fivetran_synced
+            convert_timezone('UTC', CURRENT_DATE())  as _fivetran_synced
         from src_promos
     )
 

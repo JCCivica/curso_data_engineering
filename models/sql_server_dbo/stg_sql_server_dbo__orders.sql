@@ -1,27 +1,31 @@
-{{ config(materialized="view") }}
+WITH src_orders AS (
+    SELECT *
+    FROM {{ source('sql_server_dbo', 'orders') }}
+),
 
-with
-    src_orders as (select * from {{ source("sql_server_dbo", "orders") }}),
+renamed_casted AS (
+    SELECT
+        order_id,
+        --, CASE WHEN shipping_service = '' then null
+        --   ELSE shipping_service END AS shipping_service 
+        convert_timezone('UTC',created_at) as created_at_utc,
+        user_id,
+        address_id,
+        order_total as order_total_dollars,
+        --, estimated_delivery_at
+        order_cost as order_cost_dollars,
+        shipping_cost as shipping_cost_dollars,
+        status,
+        --convert_timezone('UTC',delivered_at) as delivered_at_utc,
+        --CASE WHEN tracking_id = '' then null,
+        --  ELSE tracking_id END AS tracking_id,
+        CASE
+            WHEN promo_id = '' THEN md5('no promo')
+            ELSE md5(promo_id)
+        END AS promo_id,
+        coalesce(_fivetran_deleted, false) AS date_deleted,
+        convert_timezone('UTC', _fivetran_synced) AS date_load
+    FROM src_orders
+)
 
-    renamed_casted as (
-        select
-            order_id,
-            md5(shipping_service) as shipping_id,
-            shipping_cost,
-            address_id,
-            create_at,
-            case when promo_id like '' then md5('sin promo') else md5(promo_id) end as promo_id,
-            ESTIMATED_DELIVERY_AT,
-            order_cost,
-            user_id,
-            order_total,
-            delivered_at,
-            tracking_id,
-            status,
-            coalesce(_fivetran_deleted, 0),
-            _fivetran_synced
-        from src_orders
-    )
-
-select *
-from renamed_casted
+SELECT * FROM renamed_casted
