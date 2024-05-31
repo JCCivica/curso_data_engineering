@@ -17,8 +17,8 @@ with
     ),
      new_row as (
         select
-            md5('sin promo') as promo_id,
-            'sin promo' as promo_name,
+            md5('no promo') as promo_id,
+            'no promo' as promo_name,
             1 as status_id,
             0 as discount_dollars,
             false as _fivetran_deleted,
