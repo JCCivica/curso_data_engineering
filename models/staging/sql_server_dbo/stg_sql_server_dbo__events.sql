@@ -10,9 +10,9 @@ renamed_casted AS (
           page_url,
           event_type,
           user_id,
-          NULLIF( product_id , '' ) AS product_id ,
+          NULLIF( product_id , mb5('order_vacio')  ) AS product_id ,
           session_id,
-          convert_timezone('UTC', created_at),
+          convert_timezone('UTC', created_at) as created_at_utc,
           NULLIF(order_id, '') AS order_id,
           coalesce(_fivetran_deleted, false) AS date_deleted,
           convert_timezone('UTC',_fivetran_synced) AS date_load
@@ -20,3 +20,4 @@ renamed_casted AS (
     )
 
 SELECT * FROM renamed_casted
+
