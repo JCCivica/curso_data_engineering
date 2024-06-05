@@ -1,7 +1,7 @@
 {{ config(materialized="view") }}
 
 with
-    src_promos as (select * from {{ source("sql_server_dbo", "promos") }}),
+    src_promos as (select * from {{ ref("base_sql_server_dbo__promos") }}),
 
     renamed_casted as (
         select
@@ -10,7 +10,7 @@ with
             case
                 when status like 'inactive' then 0 when status like 'active' then 1
             end as status_id,
-            discount as discount_dollars,
+            discount_dollars,
             coalesce(_fivetran_deleted, 0) as _fivetran_deleted,
             convert_timezone('UTC', _fivetran_synced) as _fivetran_synced_utc
         from src_promos
