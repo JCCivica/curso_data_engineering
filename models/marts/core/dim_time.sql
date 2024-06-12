@@ -7,10 +7,11 @@ WITH dates AS (
 
 final AS (
 select
-    {{dbt_utils.generate_surrogate_key(['date::date'])}} as time_id,
+    --{{dbt_utils.generate_surrogate_key(['date::date'])}} as time_id,
     date::date as date,
     extract(year from date) as year,
     extract(month from date) as month,
+    LEFT(date,7) as year_month,
     monthname(date) as month_name,
     extract(day from date) as day,
     extract(dayofweek from date) as number_week_day,

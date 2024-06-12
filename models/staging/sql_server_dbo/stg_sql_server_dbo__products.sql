@@ -15,11 +15,4 @@ renamed_casted AS (
     )
 
 SELECT * FROM renamed_casted
-    union all
-    select 
-        md5('producto_vacio'),
-        0,
-        'producto_vacio',
-        0,
-        null,
-        null
+
