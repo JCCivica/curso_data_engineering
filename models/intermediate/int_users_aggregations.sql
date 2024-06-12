@@ -5,7 +5,7 @@ WITH users AS (
 
 orders AS (
     SELECT *
-    FROM {{ref('stg_sql_server__orders')}}
+    FROM {{ref('stg_sql_server_dbo__orders')}}
 ),
 
 order_items AS (
