@@ -2,253 +2,254 @@ version: 2
 
 models:
   - name: stg_sql_server__addresses
-    description: ""
+    description: "collection of addresses related to people and shipments"
     columns:
       - name: address_id
         data_type: varchar
-        description: ""
+        description: "identification field for addresses"
 
       - name: zipcode
         data_type: number
-        description: ""
+        description: " postal code system used in USA"
 
       - name: country
         data_type: varchar
-        description: ""
+        description: "full name of the country"
 
       - name: address
         data_type: varchar
-        description: ""
+        description: "address formed by number and street"
 
       - name: state
         data_type: varchar
-        description: ""
+        description: "full name of the state of USA"
 
       - name: date_deleted
         data_type: boolean
-        description: ""
+        description: "date when the row was deleted"
 
       - name: date_load
         data_type: timestamp_tz
-        description: ""
+        description: "date when the row was last updated"
 
   - name: stg_sql_server__events
-    description: ""
+    description: "collection of actions carried out by people while using the web page"
     columns:
       - name: event_id
         data_type: varchar
-        description: ""
+        description: "identification field for the event"
 
       - name: page_url
         data_type: varchar
-        description: ""
+        description: "url link of the page where the action took place"
 
       - name: event_type
         data_type: varchar
-        description: ""
+        description: "type of event such as chechout or add_to_cart"
 
       - name: user_id
         data_type: varchar
-        description: ""
+        description: "identification field for the user related to the event"
 
       - name: product_id
         data_type: varchar
-        description: ""
+        description: "identification field for the product related to the event if there were any"
 
       - name: session_id
         data_type: varchar
-        description: ""
+        description: "identification field for the session whom the event belongs to"
 
       - name: convert_timezone('utc', created_at)
         data_type: timestamp_tz
-        description: ""
+        description: "day the event takes place"
 
       - name: order_id
         data_type: varchar
-        description: ""
+        description: "identification field of the order assigned to the event"
 
       - name: date_deleted
         data_type: boolean
-        description: ""
+        description: "date when the row was deleted"
 
       - name: date_load
         data_type: timestamp_tz
-        description: ""
+        description: "date when the row was last updated"
 
   - name: stg_sql_server__orders
-    description: ""
+    description: "collection of orders that have alreay been requested, whether they are delivered or yet to be shipped"
     columns:
       - name: order_id
         data_type: varchar
-        description: ""
+        description: "identification field for each order in progress"
 
       - name: created_at_utc
         data_type: timestamp_tz
-        description: ""
+        description: "date the new entry has been created"
 
       - name: user_id
         data_type: varchar
-        description: ""
+        description: "user related to each order"
+
 
       - name: address_id
         data_type: varchar
-        description: ""
+        description: "address where the order is being delivered"
 
       - name: order_total_dollars
         data_type: float
-        description: ""
+        description: "total cost of the order, taking into account not just product cost but promo and delivery cost as well"
 
       - name: order_cost_dollars
         data_type: float
-        description: ""
+        description: "cost of the product requested"
 
       - name: shipping_cost_dollars
         data_type: float
-        description: ""
+        description: "cost of the delivery service"
 
       - name: status
         data_type: varchar
-        description: ""
+        description: "progression of the delivery"
 
       - name: promo_id
         data_type: varchar
-        description: ""
+        description: "promo applied to the order"
 
       - name: date_deleted
         data_type: boolean
-        description: ""
+        description: "date when the row was deleted"
 
       - name: date_load
         data_type: timestamp_tz
-        description: ""
+        description: "date when the row was last updated"
 
   - name: stg_sql_server__order_items
-    description: ""
+    description: "collection tha represents the quantity of each product per order"
     columns:
       - name: order_id
         data_type: varchar
-        description: ""
+        description: "order which we are grouping the products by"
 
       - name: product_id
         data_type: varchar
-        description: ""
+        description: "product that is being delivered"
 
       - name: quantity
         data_type: number
-        description: ""
+        description: "quantity of each product per order"
 
       - name: date_deleted
         data_type: boolean
-        description: ""
+        description: "date when the row was deleted"
 
       - name: date_load
         data_type: timestamp_tz
-        description: ""
+        description: "date when the row was last updated"
 
   - name: stg_sql_server__products
-    description: ""
+    description: "collection of all available products"
     columns:
       - name: product_id
         data_type: varchar
-        description: ""
+        description: "identification field for each product"
 
       - name: price_dollars
         data_type: float
-        description: ""
+        description: "price in dollars of each product"
 
       - name: name
         data_type: varchar
-        description: ""
+        description: "full name of the product "
 
       - name: inventory
         data_type: number
-        description: ""
+        description: "number of available items of each product"
 
       - name: date_deleted
         data_type: boolean
-        description: ""
+        description: "date when the row was deleted"
 
       - name: date_load
         data_type: timestamp_tz
-        description: ""
+        description: "date when the row was last updated"
 
 
   - name: stg_sql_server__promos
-    description: ""
+    description: "collection of the available promo applicable to each order"
     columns:
       - name: promo_id
         data_type: varchar
-        description: ""
+        description: "identification field for each promo"
 
       - name: promo_name
         data_type: varchar
-        description: ""
+        description: "full descriptive name of the promo"
 
       - name: discount_dollars
         data_type: number
-        description: ""
+        description: "flat amount of money discounted"
 
       - name: status_id
         data_type: number
-        description: ""
+        description: "state of the discound that indictates whether is active or inactive"
 
       - name: date_deleted
         data_type: boolean
-        description: ""
+        description: "date when the row was deleted"
 
       - name: date_load
         data_type: timestamp_tz
-        description: ""
+        description: "date when the row was last updated"
 
   - name: stg_sql_server__users
-    description: ""
+    description: "collection of all people registered who use the app"
     columns:
       - name: user_id
         data_type: varchar
-        description: ""
+        description: "identification field for each user"
 
       - name: first_name
         data_type: varchar
-        description: ""
+        description: "name of the user"
 
       - name: last_name
         data_type: varchar
-        description: ""
+        description: "last name of the user"
 
       - name: phone_number
         data_type: varchar
-        description: ""
+        description: "phone number of the user without national prefix"
 
       - name: email
         data_type: varchar
-        description: ""
+        description: "email of which the user registered with"
 
       - name: total_orders
         data_type: number
-        description: ""
+        description: "total number of orders the user has made"
 
       - name: address_id
         data_type: varchar
-        description: ""
+        description: "address tagged as first residence of the user"
 
       - name: updated_at_utc
         data_type: timestamp_tz
-        description: ""
+        description: "date when the user information was last updated"
 
       - name: created_at_utc
         data_type: timestamp_tz
-        description: ""
+        description: "date when the user first created the account"
 
       - name: date_deleted
         data_type: boolean
-        description: ""
+        description: "date when the row was deleted"
 
       - name: date_load
         data_type: timestamp_tz
-        description: ""
+        description: "date when the row was last updated"
         
   - name: stg_sql_server__tracking
-    description: ""
+    description: "collection of those orders that are on the way to be delivered"
     columns:
       - name: tracking_id
         data_type: varchar
@@ -266,7 +267,7 @@ models:
         data_type: timestamp_tz
         description: ""
   - name: stg_sql_server__status
-    description: ""
+    description: "collection of the different states that an order can go through"
     columns:
       - name: status_id
         data_type: number
