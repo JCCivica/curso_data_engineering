@@ -5,17 +5,16 @@ unit_tests:
     given:
       - input: source('sql_server_dbo', 'users')
         rows:
-          - {email: ekollaschek2q@tuttocitta.it}
-          - {email: sdivers2p@msu.edu}
-          - {email: wheinecke2l@ebay.com}
-          - {email: fail_email}
-      - input: source('sql_server_dbo', 'orders')
+          - { email: ekollaschek2q@tuttocitta.it }
+          - { email: sdivers2p@msu.edu }
+          - { email: wheinecke2l@ebay.com }
+          - { email: fail_email }
+      - input: ref('base_sql_server__orders')
         rows:
-          - {user_id: 1}
-
+          - { user_id: 1 }
     expect:
       rows:
-        - {email: ekollaschek2q@tuttocitta.it,    is_valid_email_address: true}
-        - {email: sdivers2p@msu.edu,    is_valid_email_address: true}
-        - {email: wheinecke2l@ebay.com,    is_valid_email_address: true}
-        - {email: fail_email,    is_valid_email_address: false}
+        - { email: ekollaschek2q@tuttocitta.it, is_valid_email_address: true }
+        - { email: sdivers2p@msu.edu, is_valid_email_address: true }
+        - { email: wheinecke2l@ebay.com, is_valid_email_address: true }
+        - { email: fail_email, is_valid_email_address: false }

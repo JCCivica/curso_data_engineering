@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_sql_server__addresses
+  - name: stg_sql_server_dbo__addresses
     description: "collection of addresses related to people and shipments"
     columns:
       - name: address_id
@@ -32,7 +32,7 @@ models:
         data_type: timestamp_tz
         description: "date when the row was last updated"
 
-  - name: stg_sql_server__events
+  - name: stg_sql_server_dbo__events
     description: "collection of actions carried out by people while using the web page"
     columns:
       - name: event_id
@@ -59,7 +59,7 @@ models:
         data_type: varchar
         description: "identification field for the session whom the event belongs to"
 
-      - name: convert_timezone('utc', created_at)
+      - name: create_at_utc
         data_type: timestamp_tz
         description: "day the event takes place"
 
@@ -75,7 +75,7 @@ models:
         data_type: timestamp_tz
         description: "date when the row was last updated"
 
-  - name: stg_sql_server__orders
+  - name: stg_sql_server_dbo__orders
     description: "collection of orders that have alreay been requested, whether they are delivered or yet to be shipped"
     columns:
       - name: order_id
@@ -90,10 +90,17 @@ models:
         data_type: varchar
         description: "user related to each order"
 
-
       - name: address_id
         data_type: varchar
         description: "address where the order is being delivered"
+
+      - name: tracking_id
+        data_type: varchar
+        description: "identification field related to current shippings in progress"
+
+      - name: shipping_service_id
+        data_type: varchar
+        description: "identification field related to the delivery companies that devilver the packages"
 
       - name: order_total_dollars
         data_type: float
@@ -111,6 +118,14 @@ models:
         data_type: varchar
         description: "progression of the delivery"
 
+      - name: delivered_at_utc
+        data_type: varchar
+        description: "date the packaged was delivered"
+
+      - name: estimated_delivery_at_utc
+        data_type: varchar
+        description: "date the packaged is supposed to be delivered"
+
       - name: promo_id
         data_type: varchar
         description: "promo applied to the order"
@@ -123,7 +138,7 @@ models:
         data_type: timestamp_tz
         description: "date when the row was last updated"
 
-  - name: stg_sql_server__order_items
+  - name: stg_sql_server_dbo__order_items
     description: "collection tha represents the quantity of each product per order"
     columns:
       - name: order_id
@@ -146,7 +161,7 @@ models:
         data_type: timestamp_tz
         description: "date when the row was last updated"
 
-  - name: stg_sql_server__products
+  - name: stg_sql_server_dbo__products
     description: "collection of all available products"
     columns:
       - name: product_id
@@ -174,7 +189,7 @@ models:
         description: "date when the row was last updated"
 
 
-  - name: stg_sql_server__promos
+  - name: stg_sql_server_dbo__promos
     description: "collection of the available promo applicable to each order"
     columns:
       - name: promo_id
@@ -197,11 +212,11 @@ models:
         data_type: boolean
         description: "date when the row was deleted"
 
-      - name: date_load
+      - name: date_load_utc
         data_type: timestamp_tz
         description: "date when the row was last updated"
 
-  - name: stg_sql_server__users
+  - name: stg_sql_server_dbo__users
     description: "collection of all people registered who use the app"
     columns:
       - name: user_id
@@ -232,13 +247,17 @@ models:
         data_type: varchar
         description: "address tagged as first residence of the user"
 
-      - name: updated_at_utc
-        data_type: timestamp_tz
-        description: "date when the user information was last updated"
-
+      - name: is_valid_email_address
+        data_type: varchar
+        description: "boolean value that indicates whether the email is valid or not"
+      
       - name: created_at_utc
         data_type: timestamp_tz
         description: "date when the user first created the account"
+
+      - name: updated_at_utc
+        data_type: timestamp_tz
+        description: "date when the user information was last updated"
 
       - name: date_deleted
         data_type: boolean
@@ -253,23 +272,29 @@ models:
     columns:
       - name: tracking_id
         data_type: varchar
-        description: ""
+        description: "identification field for delivery process"
+
       - name: shipping_service
         data_type: varchar
-        description: ""
+        description: "name of the company that is delivering the package"
         tests:
           - accepted_values:
               values: ["ups", "usps", "fedex", "dhl"]
+
       - name: delivered_at_utc
         data_type: timestamp_tz
-        description: ""
+        description: "date the package was delivered"
+
       - name: estimated_delivery_at_utc
         data_type: timestamp_tz
-        description: ""
-  - name: stg_sql_server__status
+        description: "date the package is supposed to be delivered"
+
+  - name: stg_sql_server_dbo__status
     description: "collection of the different states that an order can go through"
     columns:
       - name: status_id
         data_type: number
-        description: ""
+        description: "identification field for the status of the promo"
       - name: status
+        data_type: varchar
+        description: "name of the status"

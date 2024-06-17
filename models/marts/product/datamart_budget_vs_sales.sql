@@ -27,7 +27,7 @@ joined AS (
         budget_quantity,
         sales_quantity,
         sales_quantity - budget_quantity AS prevision_difference
-    FROM stg_budget b 
+    FROM fct_budget b 
     LEFT JOIN fct_orders_products op ON b.product_id = op.product_id AND b.year_month = op.year_month
 )
 SELECT * FROM joined ORDER BY 1,2
