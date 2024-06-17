@@ -13,8 +13,7 @@ renamed as (
         discount as discount_dollars,
         status,
         _fivetran_deleted,
-        _fivetran_synced as date_load_utc
-
+        _fivetran_synced,
     from source
 )
 

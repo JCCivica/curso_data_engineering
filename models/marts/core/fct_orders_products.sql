@@ -19,7 +19,6 @@ orders AS (
 
 final AS (
     SELECT
-        --ROW_NUMBER()OVER(PARTITION BY oi.order_id ORDER BY oi.product_id) AS _ROW,
         o.order_id,
         o.address_id,
         o.user_id,
