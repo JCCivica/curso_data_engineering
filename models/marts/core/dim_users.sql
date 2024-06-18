@@ -9,6 +9,7 @@ final AS (
         first_name,
         last_name,
         phone_number,
+        address_id,
         email,
         updated_at_utc,
         created_at_utc

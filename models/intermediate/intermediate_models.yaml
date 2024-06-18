@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: int_users_aggregations
+    description: "Aggregated data for users, including order statistics, shipping costs, and discounts."
+    columns:
+      - name: user_id
+        data_type: varchar
+        description: "Unique identifier for the user."
+
+      - name: total_orders
+        data_type: number
+        description: "Total number of orders placed by the user."
+
+      - name: total_orders_cost
+        data_type: float
+        description: "Total cost of all orders placed by the user."
+
+      - name: total_shipping_cost
+        data_type: float
+        description: "Total shipping cost incurred by the user."
+
+      - name: total_products
+        data_type: number
+        description: "Total number of products ordered by the user."
+
+      - name: different_products
+        data_type: number
+        description: "Number of unique products ordered by the user."
+
+      - name: total_discounts
+        data_type: float
+        description: "Total amount of discounts received by the user."
+
+  - name: int_total_products_comparison
+    description: "Comparison data for products, including budgeted and actual sales."
+    columns:
+      - name: product_id
+        data_type: varchar
+        description: "Unique identifier for the product."
+
+      - name: budget_total_products
+        data_type: number
+        description: "Budgeted total number of products expected to be sold."
+
+      - name: products_total_sales
+        data_type: number
+        description: "Actual total number of products sold."

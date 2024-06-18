@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: datamart_budget_vs_sales
+    description: "Data mart table comparing budgeted quantities versus actual sales quantities for products by month."
+    columns:
+      - name: year_month
+        data_type: varchar
+        description: "Year and month in YYYY-MM format representing the time period for the data."
+
+      - name: product_id
+        data_type: varchar
+        description: "Unique identifier for each product."
+
+      - name: budget_quantity
+        data_type: number
+        description: "The quantity of the product that was budgeted for the month."
+
+      - name: sales_quantity
+        data_type: number
+        description: "The actual quantity of the product sold in the month."
+
+      - name: prevision_difference
+        data_type: number
+        description: "The difference between the budgeted quantity and the actual sales quantity. Calculated as (sales_quantity - budget_quantity)."

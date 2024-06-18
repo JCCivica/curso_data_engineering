@@ -1,0 +1,73 @@
+version: 2
+
+models:
+  - name: mart_users
+    description: "Data mart table containing detailed information about users, including their personal information, address, and summary statistics of their orders."
+    columns:
+      - name: user_id
+        data_type: varchar
+        description: "Unique identifier for each user."
+
+      - name: first_name
+        data_type: varchar
+        description: "The first name of the user."
+
+      - name: last_name
+        data_type: varchar
+        description: "The last name of the user."
+
+      - name: email
+        data_type: varchar
+        description: "The email address of the user."
+
+      - name: phone_number
+        data_type: varchar
+        description: "The phone number of the user."
+
+      - name: created_at_utc
+        data_type: timestamp_tz
+        description: "The timestamp when the user was created, in UTC."
+
+      - name: updated_at_utc
+        data_type: timestamp_tz
+        description: "The timestamp when the user's information was last updated, in UTC."
+
+      - name: address
+        data_type: varchar
+        description: "The address of the user."
+
+      - name: zipcode
+        data_type: number
+        description: "The postal code of the user's address."
+
+      - name: state
+        data_type: varchar
+        description: "The state or province of the user's address."
+
+      - name: country
+        data_type: varchar
+        description: "The country of the user's address."
+
+      - name: total_orders
+        data_type: number
+        description: "The total number of orders placed by the user."
+
+      - name: total_orders_cost
+        data_type: float
+        description: "The total cost of all orders placed by the user."
+
+      - name: total_shipping_cost
+        data_type: float
+        description: "The total shipping cost for all orders placed by the user."
+
+      - name: total_products
+        data_type: number
+        description: "The total number of products purchased by the user across all orders."
+
+      - name: different_products
+        data_type: number
+        description: "The number of unique products purchased by the user."
+
+      - name: total_discounts
+        data_type: float
+        description: "The total amount of discounts applied to the user's orders."
